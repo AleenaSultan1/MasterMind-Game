@@ -15,6 +15,7 @@
  * ****************************************
  */
 
+package org.kcas_mastermind;
 import java.util.Scanner;
 
 public class CodeBreaker {

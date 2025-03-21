@@ -15,7 +15,7 @@
  * ****************************************
  */
 
-
+package org.kcas_mastermind;
 public enum GameState {
     IN_PROGRESS {
         @Override

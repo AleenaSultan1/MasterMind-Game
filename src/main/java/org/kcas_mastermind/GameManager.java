@@ -15,8 +15,7 @@
  * ****************************************
  */
 
-import org.kcas_mastermind.PegState;
-import org.kcas_mastermind.gameConfig;
+package org.kcas_mastermind;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -51,11 +50,11 @@ public class GameManager {
     public void startGame(GameState newState) {
         // Check if the transition is valid
         int count = 0;
-        while (currentGameState == GameState.IN_PROGRESS && count < gameConfig.MAX_ATTEMPTS) {
+        while (currentGameState == GameState.IN_PROGRESS && count < GameConfig.MAX_ATTEMPTS) {
             count +=1 ;
             String userInput = codeBreaker.getUserInput();
             codeBreaker.sendUserCodeToCodeMaker();
-            ArrayList<PegState> result = codeMaker.getResult();
+            ArrayList<PegState> result = CodeMaker.getResult();
             if (result == expectedResult){
                 currentGameState = GameState.END;
                 System.out.println("Congratulations! You won!");
@@ -67,7 +66,7 @@ public class GameManager {
 
     }
 
-    public ArrayList<>()
+    //public ArrayList<>()
 }
 
 
