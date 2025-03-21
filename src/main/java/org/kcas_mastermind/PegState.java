@@ -16,5 +16,8 @@
  */
 
 package org.kcas_mastermind;
-public class PegState {
+public enum PegState {
+    RED,
+    WHITE,
+    EMPTY;
 }
