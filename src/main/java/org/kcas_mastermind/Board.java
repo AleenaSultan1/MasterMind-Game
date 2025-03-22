@@ -24,7 +24,7 @@ public class Board {
     private ArrayList<CodeValue> userPeg;
     private ArrayList<PegState> scoringPeg;
 
-    private Board(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
+    public Board(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
         this.userPeg = userPeg;
         this.scoringPeg = scoringPeg;
     }
@@ -49,4 +49,9 @@ public class Board {
         return scoringPeg;
     }
 
+    @Override
+    public String toString() {
+        return "User guess: " + userPeg + "Scoring peg: " + scoringPeg;
+    }
 }
+

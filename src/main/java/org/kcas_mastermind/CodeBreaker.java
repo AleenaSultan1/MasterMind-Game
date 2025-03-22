@@ -16,22 +16,22 @@
  */
 
 package org.kcas_mastermind;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CodeBreaker {
     private String userCode;
+    private CodeMaker codeMaker;
     public CodeBreaker() {
+
         this.userCode = "";
+        this.codeMaker = null;
     }
 
-    public String getUserInput(){
+    public ArrayList<CodeValue> getUserInput(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter user code: ");
         userCode = scanner.nextLine();
-        return userCode;
-    }
-
-    public CodeValue sendUserCodeToCodeMaker(){
         return CodeValue.parseString(userCode);
     }
 
