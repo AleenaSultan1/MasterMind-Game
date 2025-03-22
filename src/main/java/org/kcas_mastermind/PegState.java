@@ -27,4 +27,9 @@ public enum PegState {
     PegState(String peg) {
         this.peg = peg;
     }
+
+    @Override
+    public String toString() {
+        return peg;
+    }
 }

@@ -11,55 +11,73 @@
  * Class: Board
  *
  * Description:
- *
+ * The `Board` class represents the game board for the Mastermind game.
+ * It stores the user's guessed code and the corresponding scoring pegs,
+ * which indicate how close the guess is to the secret code.
  * ****************************************
  */
 
 package org.kcas_mastermind;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
+/**
+ * The `Board` class represents the game board for the Mastermind game.
+ * It maintains the user's guessed code and the corresponding scoring pegs,
+ * which provide feedback on the accuracy of the guess.
+ */
 public class Board {
+    // Stores the user's guessed code as a list of `CodeValue` objects
     private static ArrayList<CodeValue> userPeg;
+
+    // Stores the scoring pegs as a list of `PegState` objects
     private static ArrayList<PegState> scoringPeg;
 
+    /**
+     * Private constructor to initialize the `Board` with the user's guessed code
+     * and the corresponding scoring pegs.
+     *
+     * @param userPeg    The user's guessed code as a list of `CodeValue` objects.
+     * @param scoringPeg The scoring pegs as a list of `PegState` objects.
+     */
     private Board(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
-        this.userPeg = userPeg;
-        this.scoringPeg = scoringPeg;
+        Board.userPeg = userPeg;
+        Board.scoringPeg = scoringPeg;
     }
 
+    /**
+     * Updates the game board with the latest user guess and scoring pegs.
+     *
+     * @param userPeg    The user's latest guessed code as a list of `CodeValue` objects.
+     * @param scoringPeg The latest scoring pegs as a list of `PegState` objects.
+     * @return A new `Board` instance representing the updated game state.
+     */
     public static Board updateBoard(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
-        if (userPeg.size() != GameConfig.CODE_LENGTH | scoringPeg.size() != GameConfig.CODE_LENGTH) {
-            System.out.println("Error: invalid board length");
-            return null;
-        }
         return new Board(userPeg, scoringPeg);
     }
 
-    public static Board makeNewBoard() {
-        userPeg = new ArrayList<CodeValue>();
-        scoringPeg = new ArrayList<PegState>();
-        System.out.println("Clearing/Making new board");
-        return new Board(userPeg, scoringPeg);
-    }
-
-    public ArrayList<PegState> formatScoringPeg() {
-        Collections.sort(scoringPeg);
-        return scoringPeg;
-    }
-
+    /**
+     * Generates a string representation of the game board.
+     * The output includes the user's guessed code and the corresponding scoring pegs.
+     *
+     * @return A string representation of the board in the format:
+     *         "UserGuess --> ScoringPegs".
+     */
     @Override
     public String toString() {
+        // Build the scoring pegs output
         String scoringOutput = "";
         for (PegState peg : scoringPeg) {
             scoringOutput += peg.toString();
         }
 
+        // Build the user's guessed code output
         String userOutput = "";
         for (CodeValue codeValue : userPeg) {
             userOutput += codeValue.toString();
         }
+
+        // Combine the user's guess and scoring pegs into a single string
         return userOutput + " --> " + scoringOutput;
     }
 }
