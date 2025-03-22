@@ -55,7 +55,7 @@ public class CodeBreaker {
             // Validate the input
             if (!isValidInput(userCode)) {
                 System.out.println("Invalid input!");
-                System.out.println("Please enter exactly 4 digits between 1 and 6.");
+                System.out.print("Please enter exactly 4 digits between 1 and 6: ");
             } else {
                 isValid = true; // Exit the loop if input is valid
             }

@@ -4,14 +4,16 @@
  *
  * Name: Aleena Sultan
  * Date: 20/03/2025
- * Time: 11:03 am
+ * Time: 11:03 am
  *
  * Project: csci205_hw
  * Package: PACKAGE_NAME
  * Class: GameManager
  *
  * Description:
- *
+ * The GameManager class is responsible for managing the flow of the Mastermind game.
+ * It handles the generation of the secret code, tracking game state, and managing
+ * interactions between the CodeBreaker and CodeMaker.
  * ****************************************
  */
 
@@ -21,6 +23,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * The GameManager class manages the core logic of the Mastermind game.
+ * It generates the secret code, tracks the game state, and handles interactions
+ * between the CodeBreaker and CodeMaker.
+ */
 
 public class GameManager {
     private String secretCode;
@@ -30,6 +37,10 @@ public class GameManager {
     private Board board;
     private boolean gameWon;
 
+    /**
+     * Constructs a new GameManager instance.
+     * Initializes the secret code, CodeBreaker, expected result, and CodeMaker.
+     */
     public GameManager() {
         this.secretCode = "";
         this.codeBreaker = new CodeBreaker();
@@ -40,12 +51,23 @@ public class GameManager {
         this.gameWon = false;
     }
 
+    /**
+     * Assigns the expected result for a correct guess.
+     * The expected result is a list of four PegState.RED values,
+     * indicating all pegs are correct in both value and position.
+     */
     private void assignExpectedResult() {
         for (int i = 0; i < 4; i++) {
             expectedResult.add(PegState.RED);
         }
     }
 
+    /**
+     * Generates a random secret code for the game.
+     * The code consists of four digits, each ranging from 0 to 6.
+     *
+     * @return A list of CodeValue objects representing the secret code.
+     */
     public ArrayList<CodeValue> generateSecretCode() {
         Random random = new Random();
         for (int i = 0; i < 4; i++) {
@@ -54,6 +76,11 @@ public class GameManager {
         return CodeValue.parseString(secretCode);
     }
 
+    /**
+     * Starts the Mastermind game.
+     * Manages the game loop, including user input, code evaluation, and board updates.
+     * The game continues until the player guesses the correct code or exhausts all attempts.
+     */
     public void startGame() {
         Scanner scnr = new Scanner(System.in);
 

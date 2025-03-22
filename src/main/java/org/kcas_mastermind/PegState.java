@@ -15,7 +15,15 @@
  * ****************************************
  */
 
+
 package org.kcas_mastermind;
+
+/**
+ * Represents the possible states of a peg in the game.
+ * - RED: Indicates a correct value in the correct position.
+ * - WHITE: Indicates a correct value but in the wrong position.
+ * - EMPTY: Indicates an incorrect value.
+ */
 
 public enum PegState {
     RED("*"),
