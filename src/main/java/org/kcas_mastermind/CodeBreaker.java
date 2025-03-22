@@ -67,7 +67,7 @@ public class CodeBreaker {
 
     /**
      * Validates the user's input to ensure it meets the requirements.
-     * The input must be exactly 4 characters long, and each character must be a digit between 1 and 6.
+     * The input must be 4 characters long, and each character must be a digit between 1 and 6.
      *
      * @param input The user's input string to validate.
      * @return `true` if the input is valid, `false` otherwise.

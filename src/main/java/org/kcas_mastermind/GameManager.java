@@ -57,7 +57,7 @@ public class GameManager {
      * indicating all pegs are correct in both value and position.
      */
     private void assignExpectedResult() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
             expectedResult.add(PegState.RED);
         }
     }
@@ -70,7 +70,7 @@ public class GameManager {
      */
     public ArrayList<CodeValue> generateSecretCode() {
         Random random = new Random();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
             secretCode = secretCode + (random.nextInt(6) + 1);
         }
         return CodeValue.parseString(secretCode);
@@ -86,7 +86,9 @@ public class GameManager {
 
         boolean isDone;
         // Loop until the user is done
-        System.out.println("Guess my 4 digit code, using numbers between 1 and 6. You have " + GameConfig.MAX_ATTEMPTS + " guesses.");
+        System.out.println("Guess my " + GameConfig.CODE_LENGTH
+                + " digit code, using numbers between 1 and 6. You have "
+                + GameConfig.MAX_ATTEMPTS + " guesses.");
         do {
             int count = 0;
             while (count < GameConfig.MAX_ATTEMPTS) {

@@ -27,14 +27,6 @@ public enum CodeValue {
         this.value = value;
     }
 
-    /**
-     * Returns the character value associated with the enum constant.
-     *
-     * @return The character value.
-     */
-    public char getValue() {
-        return value;
-    }
 
     /**
      * Converts a character to the corresponding `CodeValue` enum constant.
@@ -61,7 +53,7 @@ public enum CodeValue {
      * @return An `ArrayList` of `CodeValue` enum constants.
      */
     public static ArrayList<CodeValue> parseString(String number) {
-        ArrayList<CodeValue> list = new ArrayList<CodeValue>();
+        ArrayList<CodeValue> list = new ArrayList<>();
         // Iterate through each character in the string
         for (int i = 0; i < number.length(); i++) {
             // Convert the character to a `CodeValue` and add it to the list

@@ -79,7 +79,7 @@ public class CodeMaker {
         for (CodeValue user : unmatchedUser) {
             if (unmatchedAnswer.contains(user)) {
                 result.add(PegState.WHITE); // Correct value but in the wrong position
-                unmatchedAnswer.remove(user); // Remove only the first occurrence to avoid duplicates
+                unmatchedAnswer.remove(user); // Remove only the first occurrence
             }
         }
 
