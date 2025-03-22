@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Board {
-    private ArrayList<CodeValue> userPeg;
-    private ArrayList<PegState> scoringPeg;
+    private static ArrayList<CodeValue> userPeg;
+    private static ArrayList<PegState> scoringPeg;
 
-    public Board(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
+    private Board(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
         this.userPeg = userPeg;
         this.scoringPeg = scoringPeg;
     }
@@ -37,7 +37,7 @@ public class Board {
         return new Board(userPeg, scoringPeg);
     }
 
-    public Board makeNewBoard() {
+    public static Board makeNewBoard() {
         userPeg = new ArrayList<CodeValue>();
         scoringPeg = new ArrayList<PegState>();
         System.out.println("Clearing/Making new board");
