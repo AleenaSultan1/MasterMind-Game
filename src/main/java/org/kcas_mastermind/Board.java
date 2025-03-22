@@ -49,4 +49,17 @@ public class Board {
         return scoringPeg;
     }
 
+    @Override
+    public String toString() {
+        String scoringOutput = "";
+        for (PegState peg : scoringPeg) {
+            scoringOutput += peg.toString();
+        }
+
+        String userOutput = "";
+        for (CodeValue codeValue : userPeg) {
+            userOutput += codeValue.toString();
+        }
+        return userOutput + " --> " + scoringOutput;
+    }
 }

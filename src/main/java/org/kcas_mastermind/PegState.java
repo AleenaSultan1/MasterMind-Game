@@ -18,8 +18,13 @@
 package org.kcas_mastermind;
 
 public enum PegState {
-    RED,
-    WHITE,
-    EMPTY
+    RED("*"),
+    WHITE("+"),
+    EMPTY("-")
     ;
+    private final String peg;
+
+    PegState(String peg) {
+        this.peg = peg;
+    }
 }
