@@ -47,7 +47,7 @@ public class GameManager {
         this.expectedResult = new ArrayList<>();
         assignExpectedResult();
         this.codeMaker = new CodeMaker(null, null);
-        this.board = Board.updateBoard(null, null);
+        this.board = Board.makeNewBoard();
         this.gameWon = false;
     }
 
@@ -94,11 +94,8 @@ public class GameManager {
             while (count < GameConfig.MAX_ATTEMPTS) {
                 count++;
                 System.out.print("Guess " + count + ": ");
-                ArrayList<CodeValue> userInput = codeBreaker.getUserInput();
                 ArrayList<CodeValue> answerKey = generateSecretCode();
-                codeMaker = new CodeMaker(userInput, answerKey);
-                ArrayList<PegState> result = codeMaker.getResult();
-                board = Board.updateBoard(userInput, result);
+                ArrayList<PegState> result = codeBreaker.startRound(answerKey);
                 if (result.equals(expectedResult)) {
                     gameWon = true;
                     break;

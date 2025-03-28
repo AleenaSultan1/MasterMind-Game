@@ -2,13 +2,17 @@
 <project version="4">
   <component name="CheckStyle-IDEA" serialisationVersion="2">
     <checkstyleVersion>10.21.2</checkstyleVersion>
-    <scanScope>JavaOnly</scanScope>
+    <scanScope>JavaOnlyWithTests</scanScope>
+    <suppressErrors>true</suppressErrors>
     <option name="thirdPartyClasspath" />
-    <option name="activeLocationIds" />
+    <option name="activeLocationIds">
+      <option value="34e099da-4832-42e0-a1dc-2ac12b9f42b0" />
+    </option>
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
+        <ConfigurationLocation id="34e099da-4832-42e0-a1dc-2ac12b9f42b0" type="HTTP_URL" scope="Project Files" description="CSCI 205 Style">https://eg.bucknell.edu/~csci205/2025-spring/checkstyle.xml</ConfigurationLocation>
       </list>
     </option>
   </component>

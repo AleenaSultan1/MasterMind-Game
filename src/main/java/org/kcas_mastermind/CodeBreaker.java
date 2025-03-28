@@ -28,7 +28,9 @@ import java.util.Scanner;
  * It validates the input and converts it into a list of `CodeValue` objects for further processing.
  */
 public class CodeBreaker {
-    private String userCode; // Stores the user's input code
+    private String userCode;
+    private Board board;
+
 
     /**
      * Default constructor for the `CodeBreaker` class.
@@ -36,6 +38,7 @@ public class CodeBreaker {
      */
     public CodeBreaker() {
         this.userCode = "";
+        this.board = Board.makeNewBoard();
     }
 
     /**
@@ -90,5 +93,18 @@ public class CodeBreaker {
 
         // If all checks pass, the input is valid
         return true;
+    }
+
+    /**
+     * Starts the Mastermind game.
+     * Manages the game loop, including user input, code evaluation, and board updates.
+     * The game continues until the player guesses the correct code or exhausts all attempts.
+     */
+    public ArrayList<PegState> startRound(ArrayList<CodeValue> answerKey) {
+        ArrayList<CodeValue> userInput = getUserInput();
+        CodeMaker codeMaker = new CodeMaker(userInput, answerKey);
+        ArrayList<PegState> result = codeMaker.getResult();
+        board.updateBoard(userInput, result);
+        return result;
     }
 }

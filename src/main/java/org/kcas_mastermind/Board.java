@@ -45,15 +45,22 @@ public class Board {
         Board.scoringPeg = scoringPeg;
     }
 
+    public static Board makeNewBoard() {
+        return new Board(null, null);
+    }
     /**
      * Updates the game board with the latest user guess and scoring pegs.
      *
      * @param userPeg    The user's latest guessed code as a list of `CodeValue` objects.
      * @param scoringPeg The latest scoring pegs as a list of `PegState` objects.
-     * @return A new `Board` instance representing the updated game state.
      */
-    public static Board updateBoard(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
-        return new Board(userPeg, scoringPeg);
+    public void updateBoard(ArrayList<CodeValue> userPeg, ArrayList<PegState> scoringPeg) {
+        if (userPeg != null) {
+            Board.userPeg = userPeg;
+        }
+        if (scoringPeg != null) {
+            Board.scoringPeg = scoringPeg;
+        }
     }
 
     /**
