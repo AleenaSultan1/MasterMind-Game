@@ -40,11 +40,11 @@ public class MinMaxSolver {
      * Initializes all possible codes, sets the optimal first guess,
      * and generates a random secret code.
      */
-    public MinMaxSolver() {
+    public MinMaxSolver(ArrayList<CodeValue> secretCode) {
         this.allPossibleCodes = generateAllPossibleCode();
         this.remainingGuesses = new ArrayList<>(allPossibleCodes);
         this.bestGuess = CodeValue.parseString("1122"); // Optimal first guess
-        this.secretCode = new GameManager().generateSecretCode();
+        this.secretCode = secretCode;
         this.attempts = 0;
     }
 

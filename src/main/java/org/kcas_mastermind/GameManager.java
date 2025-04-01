@@ -123,8 +123,8 @@ public class GameManager {
 
         for (int i = 0; i < gameNumber; i++) {
             ArrayList<CodeValue> answerKey = generateSecretCode();
-            RandomSolver randomSolver = new RandomSolver();
-            int turnCount = randomSolver.solve(answerKey);
+            RandomSolver randomSolver = new RandomSolver(answerKey);
+            int turnCount = randomSolver.solve();
             turnTotal += turnCount;
         }
         System.out.println("Game number: " + gameNumber);
@@ -137,9 +137,9 @@ public class GameManager {
 
         for (int i = 0; i < gameNumber; i++) {
             ArrayList<CodeValue> answerKey = generateSecretCode();
-            StupidSolver stupidSimulation = new StupidSolver();
+            StupidSolver stupidSimulation = new StupidSolver(answerKey);
             try {
-                int turnCount = stupidSimulation.solve(answerKey);
+                int turnCount = stupidSimulation.solve();
                 turnTotal += turnCount;
             } catch (Exception e) {
                 System.out.println(e);
@@ -148,6 +148,18 @@ public class GameManager {
         System.out.println("Game number: " + gameNumber);
         System.out.println("Average number of turns: " + turnTotal / gameNumber);
 
+    }
+
+    public void startMinMaxGame(int gameNumber) {
+        double turnTotal = 0;
+        for (int i = 0; i < gameNumber; i++) {
+            ArrayList<CodeValue> answerKey = generateSecretCode();
+            MinMaxSolver minMaxSolver = new MinMaxSolver(answerKey);
+            int turnCount = minMaxSolver.solveGame();
+            turnTotal += turnCount;
+        }
+        System.out.println("Game number: " + gameNumber);
+        System.out.println("Average number of turns: " + turnTotal / gameNumber);
     }
 
 

@@ -24,23 +24,25 @@ import java.util.List;
 
 public class StupidSolver extends Exception {
 
+    private ArrayList<CodeValue> answerKey;
     private CodeValue absentPeg;
     private ArrayList<CodeValue> presentPegs;
     public ArrayList<CodeValue> finalAnswer;
     private int turnCounter;
 
-    public StupidSolver() {
+    public StupidSolver(ArrayList<CodeValue> answerKey) {
         this.absentPeg = CodeValue.SIX;
+        this.answerKey = answerKey;
         this.turnCounter = 0;
         this.presentPegs = new ArrayList<>();
         this.finalAnswer = new ArrayList<>(Collections.nCopies(GameConfig.CODE_LENGTH, null));
 
     }
 
-    public Integer solve(ArrayList<CodeValue> answerKey) throws Exception {
-        getPresentPegs(answerKey);
+    public Integer solve() throws Exception {
+        getPresentPegs();
         // Checking each of final guess's peg's position
-        checkPosition(answerKey);
+        checkPosition();
         boolean result = finalAnswer.equals(answerKey);
         if (result) {
             return turnCounter;
@@ -49,7 +51,7 @@ public class StupidSolver extends Exception {
         }
     }
 
-    private void getPresentPegs(ArrayList<CodeValue> answerKey) {
+    private void getPresentPegs() {
         ArrayList<PegState> emptyPegs = new ArrayList<PegState>(Collections.nCopies(GameConfig.CODE_LENGTH, PegState.EMPTY));
         outerLoop:
         for (int i = 1; i < GameConfig.COLOR_NUM + 1; i++) {
@@ -97,7 +99,7 @@ public class StupidSolver extends Exception {
         return guess;
     }
 
-    private void checkPosition(ArrayList<CodeValue> answerKey) {
+    private void checkPosition() {
         int redCount = 0;
         for (CodeValue peg : presentPegs) {
             for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
@@ -109,12 +111,6 @@ public class StupidSolver extends Exception {
                 ArrayList<PegState> guessResult = codeMaker.getResult();
                 turnCounter++;
                 int newRedCount = Collections.frequency(guessResult, PegState.RED);
-//                System.out.println("New count " + newRedCount);
-//                System.out.println("Old count " + redCount);
-//                System.out.println("Final so far" + finalAnswer.get(i));
-//                System.out.println("Key" + answerKey);
-//                System.out.println("Current guess" + guess);
-
                 if (newRedCount > redCount) {
                     redCount = newRedCount;
                     finalAnswer.set(i, peg);

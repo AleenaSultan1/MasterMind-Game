@@ -21,20 +21,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomSolver {
-    private String guessStr;
     private final ArrayList<PegState> expectedResult;
     private int turnCount;
+    private final ArrayList<CodeValue> answerKey;
 
-    public RandomSolver() {
+    public RandomSolver(ArrayList<CodeValue> answerKey) {
         this.expectedResult = new ArrayList<>();
         assignExpectedResult();
+        this.answerKey = new ArrayList<>();
         this.turnCount = 0;
     }
 
-    public int solve(ArrayList<CodeValue> answerKey) {
+    public int solve() {
         ArrayList<PegState> result = new ArrayList<>();
         while (!result.equals(expectedResult)) {
-            guessStr = "";
+            String guessStr = "";
             Random random = new Random();
             for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
                 guessStr = guessStr + (random.nextInt(6) + 1);
