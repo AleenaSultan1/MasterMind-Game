@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * author: Aleena Sultan
  * The MinMaxSolver class implements Donald Knuth's algorithm for solving
  * Mastermind in 5 guesses or fewer. It uses a minimax approach to determine
  * the optimal next guess based on the remaining possible solutions.
@@ -36,6 +37,7 @@ public class MinMaxSolver {
     private int attempts;
 
     /**
+     * author: Aleena Sultan
      * Constructs a new MinMax solver instance.
      * Initializes all possible codes, sets the optimal first guess,
      * and generates a random secret code.
@@ -49,6 +51,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Generates all possible 4-digit codes using numbers 1-6.
      * @return List of all possible code combinations
      */
@@ -67,6 +70,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Solves the Mastermind game using Knuth's algorithm.
      * Guarantees solution in 5 guesses or fewer.
      */
@@ -94,6 +98,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Checks the current guess against the secret code.
      * @return The feedback (peg states) for the current guess
      */
@@ -102,6 +107,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Removes impossible codes based on feedback from last guess.
      * @param result The feedback (peg states) from last guess
      */
@@ -117,6 +123,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Determines the next best guess using MinMax algorithm.
      * This code was based on the information at GitHub
      * NathanDuran/Mastermind-Five-Guess-Algorithm
@@ -158,6 +165,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Calculates the maximum group size for a potential guess.
      * This code was based on the information from DeepSeek
      * I asked it to give me a way to organise the remaining possibilities
@@ -183,6 +191,7 @@ public class MinMaxSolver {
     }
 
     /**
+     * author: Aleena Sultan
      * Checks if feedback indicates a correct guess.
      * @param feedback The feedback to check
      * @return true if all pegs are correct (RED), false otherwise

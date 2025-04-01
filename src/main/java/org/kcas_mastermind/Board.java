@@ -22,6 +22,7 @@ package org.kcas_mastermind;
 import java.util.ArrayList;
 
 /**
+ * author: Khanh Cao
  * The `Board` class represents the game board for the Mastermind game.
  * It maintains the user's guessed code and the corresponding scoring pegs,
  * which provide feedback on the accuracy of the guess.
@@ -34,6 +35,7 @@ public class Board {
     private static ArrayList<PegState> scoringPeg;
 
     /**
+     * author: Khanh Cao
      * Private constructor to initialize the `Board` with the user's guessed code
      * and the corresponding scoring pegs.
      *
@@ -48,7 +50,17 @@ public class Board {
     public static Board makeNewBoard() {
         return new Board(null, null);
     }
+
+    public static ArrayList<CodeValue> getUserPeg() {
+        return userPeg;
+    }
+
+    public static ArrayList<PegState> getScoringPeg() {
+        return scoringPeg;
+    }
+
     /**
+     * author: Khanh Cao
      * Updates the game board with the latest user guess and scoring pegs.
      *
      * @param userPeg    The user's latest guessed code as a list of `CodeValue` objects.
@@ -64,6 +76,7 @@ public class Board {
     }
 
     /**
+     * author: Khanh Cao
      * Generates a string representation of the game board.
      * The output includes the user's guessed code and the corresponding scoring pegs.
      *

@@ -7,13 +7,19 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * Unit tests for the MinMaxSolver class.
+ * Author: Aleena Sultan for entire file.
+ */
 class MinMaxSolverTest {
     private MinMaxSolver solver;
+    GameManager gameManager;
+    private ArrayList<CodeValue> secretCode;
 
     @BeforeEach
     void setUp() {
-        solver = new MinMaxSolver();
+        secretCode = gameManager.generateSecretCode();
+        solver = new MinMaxSolver(secretCode);
     }
 
     @Test
