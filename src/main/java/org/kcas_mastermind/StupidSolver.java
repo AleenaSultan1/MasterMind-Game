@@ -11,7 +11,9 @@
  * Class: StupidSolver
  *
  * Description:
- *
+ * A naive brute-force solver for the Mastermind game. It first identifies the
+ * CodeValue colors present in the code using uniform guesses, then determines
+ * their correct positions by substitution.
  * ****************************************
  */
 
@@ -19,26 +21,42 @@ package org.kcas_mastermind;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 
+/**
+ * Author: Khanh Cao
+ * The StupidSolver class implements a simple algorithm for solving a Mastermind code.
+ * It detects present CodeValues by brute force, and checks all positions by trial.
+ */
 public class StupidSolver {
 
-    private ArrayList<CodeValue> answerKey;
+    private final ArrayList<CodeValue> answerKey;
     private CodeValue absentPeg;
-    private ArrayList<CodeValue> presentPegs;
+    private final ArrayList<CodeValue> presentPegs;
     public ArrayList<CodeValue> finalAnswer;
     private int turnCounter;
 
+    /**
+     * Author: Khanh Cao
+     * Constructs a StupidSolver with the specified answer key.
+     *
+     * @param answerKey the secret code to solve
+     */
     public StupidSolver(ArrayList<CodeValue> answerKey) {
         this.absentPeg = CodeValue.SIX;
         this.answerKey = answerKey;
         this.turnCounter = 0;
         this.presentPegs = new ArrayList<>();
         this.finalAnswer = new ArrayList<>(Collections.nCopies(GameConfig.CODE_LENGTH, null));
-
     }
 
+    /**
+     * Author: Khanh Cao
+     * Solves the Mastermind code by determining which pegs are present,
+     * and then checking their positions one by one.
+     *
+     * @return the number of turns used to solve the code
+     * @throws Exception if the final answer does not match the answer key
+     */
     public Integer solve() throws Exception {
         getPresentPegs();
         // Checking each of final guess's peg's position
@@ -51,8 +69,14 @@ public class StupidSolver {
         }
     }
 
+    /**
+     * Author: Khanh Cao
+     * Identifies which CodeValues are present in the answerKey by submitting
+     * uniform guesses and collecting those that yield RED pegs in the result.
+     */
     private void getPresentPegs() {
-        ArrayList<PegState> emptyPegs = new ArrayList<PegState>(Collections.nCopies(GameConfig.CODE_LENGTH, PegState.EMPTY));
+        ArrayList<PegState> emptyPegs =
+                new ArrayList<>(Collections.nCopies(GameConfig.CODE_LENGTH, PegState.EMPTY));
         outerLoop:
         for (int i = 1; i < GameConfig.COLOR_NUM + 1; i++) {
             turnCounter++;
@@ -78,14 +102,26 @@ public class StupidSolver {
         }
     }
 
+    /**
+     * Author: Khanh Cao
+     * Creates a guess where all values are the same CodeValue.
+     *
+     * @param i the integer value of the CodeValue to fill
+     * @return a list of CodeValues forming the uniform guess
+     */
     private static ArrayList<CodeValue> getUniformGuess(int i) {
-        String guessStr = "";
-        for (int j = 0; j < GameConfig.CODE_LENGTH; j++) {
-            guessStr += Integer.toString(i);
-        }
-        return CodeValue.parseString(guessStr);
+        return CodeValue.parseString(Integer.toString(i).repeat(GameConfig.CODE_LENGTH));
     }
 
+    /**
+     * Author: Khanh Cao
+     * Constructs a guess with a specific peg placed at a given index, and
+     * all other unknowns filled with the absentPeg.
+     *
+     * @param presentPeg the CodeValue to test
+     * @param index      the index at which to place the peg
+     * @return a guess with the peg inserted
+     */
     private ArrayList<CodeValue> createTestGuess(CodeValue presentPeg, int index) {
         ArrayList<CodeValue> guess = new ArrayList<>();
         for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
@@ -99,6 +135,11 @@ public class StupidSolver {
         return guess;
     }
 
+    /**
+     * Author: Khanh Cao
+     * Attempts to place each present peg into the correct position
+     * by checking the number of RED pegs returned with each test guess.
+     */
     private void checkPosition() {
         int redCount = 0;
         for (CodeValue peg : presentPegs) {
@@ -117,8 +158,5 @@ public class StupidSolver {
                 }
             }
         }
-
-
     }
-
 }

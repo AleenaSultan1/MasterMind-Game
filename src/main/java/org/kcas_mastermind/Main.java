@@ -17,6 +17,7 @@
 
 package org.kcas_mastermind;
 
+import java.util.Scanner;
 
 /**
  * The main class to start the Mastermind game.
@@ -34,7 +35,7 @@ public class Main {
 
     public static void main(String[] args) {
         GameManager gameManager = new GameManager();
-
+        gameManager.runInteractiveMode();
     }
 
 }

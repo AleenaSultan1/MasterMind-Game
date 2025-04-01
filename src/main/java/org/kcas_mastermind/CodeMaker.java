@@ -27,14 +27,9 @@ import java.util.ArrayList;
  * answer key and generates feedback in the form of `PegState` values.
  */
 public class CodeMaker {
-    // The user's guessed code as a list of `CodeValue` objects
-    private ArrayList<CodeValue> userPeg;
-
-    // The secret answer key as a list of `CodeValue` objects
-    private ArrayList<CodeValue> answerKey;
-
-    // The result of the evaluation as a list of `PegState` objects
-    private ArrayList<PegState> result;
+    private final ArrayList<CodeValue> userPeg;
+    private final ArrayList<CodeValue> answerKey;
+    private final ArrayList<PegState> result;
 
     /**
      * Constructs a `CodeMaker` instance with the user's guessed code and the secret answer key.
@@ -56,6 +51,7 @@ public class CodeMaker {
      * - EMPTY: Incorrect value.
      *
      * @return A list of `PegState` values representing the feedback for the user's guess.
+     * Ref <a href="https://github.com/Pwarde/MasterMind/blob/master/mastermind/turn.py">...</a>
      */
     public ArrayList<PegState> getResult() {
         // Temporary lists to store unmatched values

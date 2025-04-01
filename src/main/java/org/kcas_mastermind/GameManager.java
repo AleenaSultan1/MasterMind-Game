@@ -28,13 +28,11 @@ import java.util.Scanner;
  * It generates the secret code, tracks the game state, and handles interactions
  * between the CodeBreaker and CodeMaker.
  */
-
 public class GameManager {
     private String secretCode;
     private final ArrayList<PegState> expectedResult;
     private final Board board;
     private final CodeBreaker codeBreaker;
-
 
     /**
      * Constructs a new GameManager instance.
@@ -46,7 +44,6 @@ public class GameManager {
         assignExpectedResult();
         this.board = Board.makeNewBoard();
         this.codeBreaker = new CodeBreaker();
-
     }
 
     /**
@@ -70,7 +67,7 @@ public class GameManager {
         Random random = new Random();
         secretCode = "";
         for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
-            secretCode = secretCode + (random.nextInt(6) + 1);
+            secretCode += (random.nextInt(6) + 1);
         }
         return CodeValue.parseString(secretCode);
     }
@@ -87,7 +84,6 @@ public class GameManager {
 
         ArrayList<CodeValue> answerKey = generateSecretCode();
 
-        // Loop until the user is done
         System.out.println("Guess my " + GameConfig.CODE_LENGTH
                 + " digit code, using numbers between 1 and 6. You have "
                 + GameConfig.MAX_ATTEMPTS + " guesses.");
@@ -111,13 +107,17 @@ public class GameManager {
                 System.out.println("The answer was " + answerKey);
             }
 
-            // Ask if user wants to continue
             System.out.print("\nTry again? [y | n] ");
             isDone = scnr.nextLine().strip().equalsIgnoreCase("n");
         } while (!isDone);
         scnr.close();
     }
 
+    /**
+     * Starts a series of games using the RandomSolver algorithm.
+     *
+     * @param gameNumber the number of games to simulate
+     */
     public void startRandomGame(int gameNumber) {
         long startTime = System.nanoTime();
         ArrayList<Integer> turnResults = new ArrayList<>();
@@ -134,6 +134,11 @@ public class GameManager {
         printSolverStats("RandomSolver", turnResults, durationInSec);
     }
 
+    /**
+     * Starts a series of games using the StupidSolver algorithm.
+     *
+     * @param gameNumber the number of games to simulate
+     */
     public void startStupidGame(int gameNumber) {
         ArrayList<Integer> turnResults = new ArrayList<>();
         long startTime = System.nanoTime();
@@ -145,7 +150,7 @@ public class GameManager {
                 int turnCount = stupidSimulation.solve();
                 turnResults.add(turnCount);
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("Error in finding solution");
             }
         }
         long endTime = System.nanoTime();
@@ -154,6 +159,11 @@ public class GameManager {
         printSolverStats("StupidSolver", turnResults, durationInSec);
     }
 
+    /**
+     * Starts a series of games using the MinMaxSolver algorithm.
+     *
+     * @param gameNumber the number of games to simulate
+     */
     public void startMinMaxGame(int gameNumber) {
         ArrayList<Integer> turnResults = new ArrayList<>();
         long startTime = System.nanoTime();
@@ -170,7 +180,15 @@ public class GameManager {
         printSolverStats("MinMaxSolver", turnResults, durationInSec);
     }
 
-    private void printSolverStats(String solverName, ArrayList<Integer> turnResults, double durationInSec) {
+    /**
+     * Prints statistics for a solver's performance.
+     *
+     * @param solverName the name of the solver
+     * @param turnResults list of turn counts for each game
+     * @param durationInSec total duration in seconds
+     */
+    private void printSolverStats(String solverName,
+                                  ArrayList<Integer> turnResults, double durationInSec) {
         if (turnResults.isEmpty()) {
             System.out.println(solverName + " failed to complete any games.");
             return;
@@ -188,59 +206,58 @@ public class GameManager {
         System.out.printf("Total time taken: %.3f seconds%n", durationInSec);
     }
 
+    /**
+     * Runs the interactive mode menu for selecting game or solver mode.
+     */
     public void runInteractiveMode() {
         Scanner scanner = new Scanner(System.in);
+        boolean isDone;
 
         System.out.println("Welcome to Mastermind!");
-        System.out.print("Choose mode: [1] Game Mode or [2] Solver Mode: ");
+        do {
+            System.out.print("Choose mode: [1] Game Mode or [2] Solver Mode: ");
 
-        String choice = scanner.nextLine().strip();
+            String choice = scanner.nextLine().strip();
 
-        if (choice.equals("1")) {
-            // Game mode: user plays
-            startGame();
-        } else if (choice.equals("2")) {
-            // Solver mode: simulation
-            System.out.println("Select a solver:");
-            System.out.println("[1] RandomSolver");
-            System.out.println("[2] StupidSolver");
-            System.out.println("[3] MinMaxSolver");
-            System.out.print("Your choice: ");
-            String solverChoice = scanner.nextLine().strip();
+            if (choice.equals("1")) {
+                startGame();
+            } else if (choice.equals("2")) {
+                System.out.println("Select a solver:");
+                System.out.println("[1] RandomSolver");
+                System.out.println("[2] StupidSolver");
+                System.out.println("[3] MinMaxSolver");
+                System.out.print("Your choice: ");
+                String solverChoice = scanner.nextLine().strip();
 
-            System.out.print("How many games to simulate? ");
-            int numGames;
-            try {
-                numGames = Integer.parseInt(scanner.nextLine().strip());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid number. Exiting.");
-                return;
+                System.out.print("How many games to simulate? ");
+                int numGames;
+                try {
+                    numGames = Integer.parseInt(scanner.nextLine().strip());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number. Exiting.");
+                    return;
+                }
+
+                switch (solverChoice) {
+                    case "1":
+                        startRandomGame(numGames);
+                        break;
+                    case "2":
+                        startStupidGame(numGames);
+                        break;
+                    case "3":
+                        startMinMaxGame(numGames);
+                        break;
+                    default:
+                        System.out.println("Invalid solver selection.");
+                        break;
+                }
+            } else {
+                System.out.println("Invalid choice. Exiting.");
             }
-
-            switch (solverChoice) {
-                case "1":
-                    startRandomGame(numGames);
-                    break;
-                case "2":
-                    startStupidGame(numGames);
-                    break;
-                case "3":
-                    startMinMaxGame(numGames);
-                    break;
-                default:
-                    System.out.println("Invalid solver selection.");
-                    break;
-            }
-        } else {
-            System.out.println("Invalid choice. Exiting.");
-        }
-
+            System.out.print("\nTry again? [y | n] ");
+            isDone = scanner.nextLine().strip().equalsIgnoreCase("n");
+        } while (!isDone);
         scanner.close();
     }
-
-
-
 }
-
-
-
