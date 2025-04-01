@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-public class StupidSolver extends Exception {
+public class StupidSolver {
 
     private ArrayList<CodeValue> answerKey;
     private CodeValue absentPeg;

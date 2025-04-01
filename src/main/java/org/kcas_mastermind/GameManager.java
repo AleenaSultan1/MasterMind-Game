@@ -119,48 +119,125 @@ public class GameManager {
     }
 
     public void startRandomGame(int gameNumber) {
-        double turnTotal = 0;
+        long startTime = System.nanoTime();
+        ArrayList<Integer> turnResults = new ArrayList<>();
 
         for (int i = 0; i < gameNumber; i++) {
             ArrayList<CodeValue> answerKey = generateSecretCode();
             RandomSolver randomSolver = new RandomSolver(answerKey);
             int turnCount = randomSolver.solve();
-            turnTotal += turnCount;
+            turnResults.add(turnCount);
         }
-        System.out.println("Game number: " + gameNumber);
-        System.out.println("Average number of turns: " + turnTotal / gameNumber);
+        long endTime = System.nanoTime();
+        double durationInSec = (endTime - startTime) / 1e9;
 
+        printSolverStats("RandomSolver", turnResults, durationInSec);
     }
 
     public void startStupidGame(int gameNumber) {
-        double turnTotal = 0;
+        ArrayList<Integer> turnResults = new ArrayList<>();
+        long startTime = System.nanoTime();
 
         for (int i = 0; i < gameNumber; i++) {
             ArrayList<CodeValue> answerKey = generateSecretCode();
             StupidSolver stupidSimulation = new StupidSolver(answerKey);
             try {
                 int turnCount = stupidSimulation.solve();
-                turnTotal += turnCount;
+                turnResults.add(turnCount);
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
-        System.out.println("Game number: " + gameNumber);
-        System.out.println("Average number of turns: " + turnTotal / gameNumber);
+        long endTime = System.nanoTime();
+        double durationInSec = (endTime - startTime) / 1e9;
 
+        printSolverStats("StupidSolver", turnResults, durationInSec);
     }
 
     public void startMinMaxGame(int gameNumber) {
-        double turnTotal = 0;
+        ArrayList<Integer> turnResults = new ArrayList<>();
+        long startTime = System.nanoTime();
+
         for (int i = 0; i < gameNumber; i++) {
             ArrayList<CodeValue> answerKey = generateSecretCode();
             MinMaxSolver minMaxSolver = new MinMaxSolver(answerKey);
             int turnCount = minMaxSolver.solveGame();
-            turnTotal += turnCount;
+            turnResults.add(turnCount);
         }
-        System.out.println("Game number: " + gameNumber);
-        System.out.println("Average number of turns: " + turnTotal / gameNumber);
+        long endTime = System.nanoTime();
+        double durationInSec = (endTime - startTime) / 1e9;
+
+        printSolverStats("MinMaxSolver", turnResults, durationInSec);
     }
+
+    private void printSolverStats(String solverName, ArrayList<Integer> turnResults, double durationInSec) {
+        if (turnResults.isEmpty()) {
+            System.out.println(solverName + " failed to complete any games.");
+            return;
+        }
+
+        int min = turnResults.stream().mapToInt(Integer::intValue).min().orElse(-1);
+        int max = turnResults.stream().mapToInt(Integer::intValue).max().orElse(-1);
+        double avg = turnResults.stream().mapToInt(Integer::intValue).average().orElse(0.0);
+
+        System.out.println("\n=== Stats for " + solverName + " ===");
+        System.out.println("Number of games played: " + turnResults.size());
+        System.out.println("Mean number of turns: " + String.format("%.2f", avg));
+        System.out.println("Least number of turns: " + min);
+        System.out.println("Greatest number of turns: " + max);
+        System.out.printf("Total time taken: %.3f seconds%n", durationInSec);
+    }
+
+    public void runInteractiveMode() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to Mastermind!");
+        System.out.print("Choose mode: [1] Game Mode or [2] Solver Mode: ");
+
+        String choice = scanner.nextLine().strip();
+
+        if (choice.equals("1")) {
+            // Game mode: user plays
+            startGame();
+        } else if (choice.equals("2")) {
+            // Solver mode: simulation
+            System.out.println("Select a solver:");
+            System.out.println("[1] RandomSolver");
+            System.out.println("[2] StupidSolver");
+            System.out.println("[3] MinMaxSolver");
+            System.out.print("Your choice: ");
+            String solverChoice = scanner.nextLine().strip();
+
+            System.out.print("How many games to simulate? ");
+            int numGames;
+            try {
+                numGames = Integer.parseInt(scanner.nextLine().strip());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Exiting.");
+                return;
+            }
+
+            switch (solverChoice) {
+                case "1":
+                    startRandomGame(numGames);
+                    break;
+                case "2":
+                    startStupidGame(numGames);
+                    break;
+                case "3":
+                    startMinMaxGame(numGames);
+                    break;
+                default:
+                    System.out.println("Invalid solver selection.");
+                    break;
+            }
+        } else {
+            System.out.println("Invalid choice. Exiting.");
+        }
+
+        scanner.close();
+    }
+
 
 
 }

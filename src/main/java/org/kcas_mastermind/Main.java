@@ -17,6 +17,7 @@
 
 package org.kcas_mastermind;
 
+
 /**
  * The main class to start the Mastermind game.
  * This class initializes the game and starts it by calling the `GameManager`.
@@ -33,6 +34,7 @@ public class Main {
 
     public static void main(String[] args) {
         GameManager gameManager = new GameManager();
+
     }
 
 }

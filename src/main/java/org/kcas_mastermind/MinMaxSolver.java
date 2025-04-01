@@ -196,11 +196,4 @@ public class MinMaxSolver {
         return true;
     }
 
-    /**
-     * Main method to run the solver.
-     * @param args Command line arguments (not used)
-     */
-    public static void main(String[] args) {
-        new MinMaxSolver().solveGame();
-    }
 }
