@@ -36,6 +36,6 @@ The user can customise how many turns they want to run the game for and choose w
    - **Solver Mode**: Let one of the three automated solvers play the game:
      - **RandomSolver**: Makes random guesses.
      - **StupidSolver**: Uses a naive strategy to guess.
-     - **MinMaxSolver**: Implements a more strategic approach to solving the code.
+     - **MinMaxSolver**: Implements the famous MinMax strategy using Knuth's MinMax algorith.
 4. **Follow the on-screen prompts** to enter your choices and interact with the game.
 
