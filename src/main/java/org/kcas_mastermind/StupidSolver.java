@@ -22,36 +22,38 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-public class StupidSolver {
+public class StupidSolver extends Exception {
 
     private CodeValue absentPeg;
     private ArrayList<CodeValue> presentPegs;
-    private ArrayList<CodeValue> finalAnswer;
+    public ArrayList<CodeValue> finalAnswer;
     private int turnCounter;
 
     public StupidSolver() {
+        this.absentPeg = CodeValue.SIX;
         this.turnCounter = 0;
         this.presentPegs = new ArrayList<>();
         this.finalAnswer = new ArrayList<>(Collections.nCopies(GameConfig.CODE_LENGTH, null));
 
     }
 
-    public Integer solve(ArrayList<CodeValue> answerKey) {
+    public Integer solve(ArrayList<CodeValue> answerKey) throws Exception {
         getPresentPegs(answerKey);
         // Checking each of final guess's peg's position
-        boolean result = determineFinalPosition(answerKey);
+        checkPosition(answerKey);
+        boolean result = finalAnswer.equals(answerKey);
         if (result) {
             return turnCounter;
         } else {
-            return 0;
+            throw new Exception("Error");
         }
     }
 
     private void getPresentPegs(ArrayList<CodeValue> answerKey) {
         ArrayList<PegState> emptyPegs = new ArrayList<PegState>(Collections.nCopies(GameConfig.CODE_LENGTH, PegState.EMPTY));
         outerLoop:
-        for (int i = 1; i < GameConfig.COLOR_NUM; i++) {
-            turnCounter += 1;
+        for (int i = 1; i < GameConfig.COLOR_NUM + 1; i++) {
+            turnCounter++;
             ArrayList<CodeValue> guessPeg = getUniformGuess(i);
 
             // Pass to codeMaker to check guess
@@ -82,68 +84,45 @@ public class StupidSolver {
         return CodeValue.parseString(guessStr);
     }
 
-
-    private
-
-    private boolean determineFinalPosition(ArrayList<CodeValue> answerKey) {
-        for (CodeValue peg : new HashSet<>(presentPegs)) {
-            int count = Collections.frequency(presentPegs, peg);
-            checkPosition(answerKey, peg, count);
-        }
-
-        return finalAnswer.equals(answerKey);
-    }
-
-
-    private void checkPosition(ArrayList<CodeValue> answerKey, CodeValue currentPeg, int count) {
-        List<Integer> possiblePositions = new ArrayList<>();
-        for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
-            if (finalAnswer.get(i) == null) {
-                possiblePositions.add(i);
-            }
-        }
-
-        // Implement binary search
-        while (count > 0 && !possiblePositions.isEmpty()) {
-            // Binary search-like approach - test half the positions at once
-            int split = (possiblePositions.size() + 1) / 2;
-            List<Integer> testPositions = possiblePositions.subList(0, split);
-
-            // Create test guess
-            ArrayList<CodeValue> testGuess = createTestGuess(currentPeg, testPositions);
-
-            // Get response
-            turnCounter += 1;
-            CodeMaker codeMaker = new CodeMaker(testGuess, answerKey);
-            List<PegState> response = codeMaker.getResult();
-
-            int correctPositions = Collections.frequency(response, PegState.RED);
-
-            if (correctPositions > 0) {
-                // Some of these positions are correct
-                for (int i = 0; i < correctPositions; i++) {
-                    finalAnswer.set(testPositions.get(i), currentPeg);
-                    count--;
-                }
-                possiblePositions = testPositions.subList(correctPositions, testPositions.size());
-            } else {
-                // None of these positions are correct
-                possiblePositions = possiblePositions.subList(split, possiblePositions.size());
-            }
-        }
-    }
-
-    private ArrayList<CodeValue> createTestGuess(CodeValue peg, List<Integer> positions) {
+    private ArrayList<CodeValue> createTestGuess(CodeValue presentPeg, int index) {
         ArrayList<CodeValue> guess = new ArrayList<>();
         for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
-            if (positions.contains(i)) {
-                guess.add(peg);
-            } else if (finalAnswer.get(i) != null) {
+            if (finalAnswer.get(i) != null) {
                 guess.add(finalAnswer.get(i));
             } else {
                 guess.add(absentPeg);
             }
         }
+        guess.set(index, presentPeg);
         return guess;
     }
+
+    private void checkPosition(ArrayList<CodeValue> answerKey) {
+        int redCount = 0;
+        for (CodeValue peg : presentPegs) {
+            for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
+                if (finalAnswer.get(i) != null) {
+                    continue;
+                }
+                ArrayList<CodeValue> guess = createTestGuess(peg, i);
+                CodeMaker codeMaker = new CodeMaker(guess, answerKey);
+                ArrayList<PegState> guessResult = codeMaker.getResult();
+                turnCounter++;
+                int newRedCount = Collections.frequency(guessResult, PegState.RED);
+//                System.out.println("New count " + newRedCount);
+//                System.out.println("Old count " + redCount);
+//                System.out.println("Final so far" + finalAnswer.get(i));
+//                System.out.println("Key" + answerKey);
+//                System.out.println("Current guess" + guess);
+
+                if (newRedCount > redCount) {
+                    redCount = newRedCount;
+                    finalAnswer.set(i, peg);
+                }
+            }
+        }
+
+
+    }
+
 }

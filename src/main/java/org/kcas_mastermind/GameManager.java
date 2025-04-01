@@ -68,6 +68,7 @@ public class GameManager {
      */
     public ArrayList<CodeValue> generateSecretCode() {
         Random random = new Random();
+        secretCode = "";
         for (int i = 0; i < GameConfig.CODE_LENGTH; i++) {
             secretCode = secretCode + (random.nextInt(6) + 1);
         }
@@ -117,16 +118,36 @@ public class GameManager {
         scnr.close();
     }
 
-    public void startRandomGame() {
+    public void startRandomGame(int gameNumber) {
+        double turnTotal = 0;
+
+        for (int i = 0; i < gameNumber; i++) {
+            ArrayList<CodeValue> answerKey = generateSecretCode();
+            RandomSolver randomSolver = new RandomSolver();
+            int turnCount = randomSolver.solve(answerKey);
+            turnTotal += turnCount;
+        }
+        System.out.println("Game number: " + gameNumber);
+        System.out.println("Average number of turns: " + turnTotal / gameNumber);
 
     }
 
     public void startStupidGame(int gameNumber) {
-        ArrayList<CodeValue> answerKey = generateSecretCode();
-        StupidSolver stupidSimulation = new StupidSolver();
-        int turnCount = stupidSimulation.solve(answerKey);
+        double turnTotal = 0;
+
+        for (int i = 0; i < gameNumber; i++) {
+            ArrayList<CodeValue> answerKey = generateSecretCode();
+            StupidSolver stupidSimulation = new StupidSolver();
+            try {
+                int turnCount = stupidSimulation.solve(answerKey);
+                turnTotal += turnCount;
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
         System.out.println("Game number: " + gameNumber);
-        System.out.println("Average turn: " + turnCount);
+        System.out.println("Average number of turns: " + turnTotal / gameNumber);
+
     }
 
 
