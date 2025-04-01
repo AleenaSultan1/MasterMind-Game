@@ -19,6 +19,7 @@
 package org.kcas_mastermind;
 
 /**
+ * author: Khanh Cao
  * The `GameConfig` class provides configuration constants for the Mastermind game.
  * These constants define the rules and constraints of the game, such as the
  * maximum number of attempts and the length of the secret code.

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for the CodeBreaker class.
+ * Author: Aleena Sultan for entire file.
  */
 class CodeBreakerTest {
     private CodeBreaker codeBreaker;

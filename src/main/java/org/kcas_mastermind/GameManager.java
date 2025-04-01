@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
+ * author: Aleena Sultan
  * The GameManager class manages the core logic of the Mastermind game.
  * It generates the secret code, tracks the game state, and handles interactions
  * between the CodeBreaker and CodeMaker.
@@ -37,6 +38,7 @@ public class GameManager {
 
 
     /**
+     * author: Aleena Sultan
      * Constructs a new GameManager instance.
      * Initializes the secret code, CodeBreaker, expected result, and CodeMaker.
      */
@@ -50,6 +52,7 @@ public class GameManager {
     }
 
     /**
+     * author: Aleena Sultan
      * Assigns the expected result for a correct guess.
      * The expected result is a list of four PegState.RED values,
      * indicating all pegs are correct in both value and position.
@@ -61,6 +64,7 @@ public class GameManager {
     }
 
     /**
+     * author: Aleena Sultan
      * Generates a random secret code for the game.
      * The code consists of four digits, each ranging from 0 to 6.
      *
@@ -76,6 +80,7 @@ public class GameManager {
     }
 
     /**
+     * author: Khanh Cao
      * Starts the Mastermind game.
      * Manages the game loop, including user input, code evaluation, and board updates.
      * The game continues until the player guesses the correct code or exhausts all attempts.
@@ -118,6 +123,12 @@ public class GameManager {
         scnr.close();
     }
 
+    /**
+     * author: Khanh Cao
+     * Starts a series of games using the RandomSolver algorithm.
+     *
+     * @param gameNumber The number of games to simulate.
+     */
     public void startRandomGame(int gameNumber) {
         long startTime = System.nanoTime();
         ArrayList<Integer> turnResults = new ArrayList<>();
@@ -134,6 +145,12 @@ public class GameManager {
         printSolverStats("RandomSolver", turnResults, durationInSec);
     }
 
+    /**
+     * author: Khanh Cao
+     * Starts a series of games using the StupidSolver algorithm.
+     *
+     * @param gameNumber The number of games to simulate.
+     */
     public void startStupidGame(int gameNumber) {
         ArrayList<Integer> turnResults = new ArrayList<>();
         long startTime = System.nanoTime();
@@ -154,6 +171,12 @@ public class GameManager {
         printSolverStats("StupidSolver", turnResults, durationInSec);
     }
 
+    /**
+     * author: Khanh Cao
+     * Starts a series of games using the MinMaxSolver algorithm.
+     *
+     * @param gameNumber The number of games to simulate.
+     */
     public void startMinMaxGame(int gameNumber) {
         ArrayList<Integer> turnResults = new ArrayList<>();
         long startTime = System.nanoTime();
@@ -170,6 +193,14 @@ public class GameManager {
         printSolverStats("MinMaxSolver", turnResults, durationInSec);
     }
 
+    /**
+     * author: Khanh Cao
+     * Prints the statistics of a solver's performance.
+     *
+     * @param solverName    The name of the solver algorithm.
+     * @param turnResults   A list containing the number of turns taken in each game.
+     * @param durationInSec The total duration of the games in seconds.
+     */
     private void printSolverStats(String solverName, ArrayList<Integer> turnResults, double durationInSec) {
         if (turnResults.isEmpty()) {
             System.out.println(solverName + " failed to complete any games.");
@@ -188,6 +219,10 @@ public class GameManager {
         System.out.printf("Total time taken: %.3f seconds%n", durationInSec);
     }
 
+    /**
+     * author: Khanh Cao
+     * Runs an interactive mode where the user can either play the game or run a solver simulation.
+     */
     public void runInteractiveMode() {
         Scanner scanner = new Scanner(System.in);
 
@@ -238,9 +273,14 @@ public class GameManager {
         scanner.close();
     }
 
-
+    /**
+     * author: Aleena Sultan
+     * Gets the expected result of the game.
+     *
+     * @return An ArrayList of PegState representing the expected result.
+     */
+    public ArrayList<PegState> getExpectedResult() {
+        return expectedResult;
+    }
 
 }
-
-
-

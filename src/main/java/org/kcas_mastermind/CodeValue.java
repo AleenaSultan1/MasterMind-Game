@@ -3,6 +3,7 @@ package org.kcas_mastermind;
 import java.util.ArrayList;
 
 /**
+ * author: Khanh Cao
  * The `CodeValue` enum represents the possible values for a code in the Mastermind game.
  * Each value corresponds to a digit between 1 and 6, which can be used in the user's guess
  * or the secret code.
@@ -29,6 +30,7 @@ public enum CodeValue {
 
 
     /**
+     * author: Khanh Cao
      * Converts a character to the corresponding `CodeValue` enum constant.
      *
      * @param num The character to convert (must be between '1' and '6').
@@ -47,6 +49,7 @@ public enum CodeValue {
     }
 
     /**
+     * author: Khanh Cao
      * Parses a string of digits into a list of `CodeValue` enum constants.
      *
      * @param number The string to parse (must consist of digits between '1' and '6').
@@ -63,6 +66,7 @@ public enum CodeValue {
     }
 
     /**
+     * author: Khanh Cao
      * Returns the string representation of the `CodeValue` enum constant.
      *
      * @return The character value as a string.

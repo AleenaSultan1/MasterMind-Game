@@ -28,7 +28,7 @@ public class RandomSolver {
     public RandomSolver(ArrayList<CodeValue> answerKey) {
         this.expectedResult = new ArrayList<>();
         assignExpectedResult();
-        this.answerKey = new ArrayList<>();
+        this.answerKey = answerKey;
         this.turnCount = 0;
     }
 

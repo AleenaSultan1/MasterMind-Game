@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the CodeMaker class.
+ * Author: Aleena Sultan for entire file.
  */
 class CodeMakerTest {
     private ArrayList<CodeValue> answerKey;

@@ -19,6 +19,7 @@
 package org.kcas_mastermind;
 
 /**
+ * author: Aleena Sultan
  * Represents the possible states of a peg in the game.
  * - RED: Indicates a correct value in the correct position.
  * - WHITE: Indicates a correct value but in the wrong position.

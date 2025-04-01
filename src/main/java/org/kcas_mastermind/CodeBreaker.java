@@ -33,6 +33,7 @@ public class CodeBreaker {
 
 
     /**
+     * author: Aleena Sultan
      * Default constructor for the `CodeBreaker` class.
      * Initializes the `userCode` to an empty string.
      */
@@ -42,6 +43,7 @@ public class CodeBreaker {
     }
 
     /**
+     * author: Aleena Sultan
      * Prompts the user to input a 4-digit code and validates the input.
      * The input must consist of digits between 1 and 6 (inclusive).
      *
@@ -69,6 +71,7 @@ public class CodeBreaker {
     }
 
     /**
+     * author: Aleena Sultan
      * Validates the user's input to ensure it meets the requirements.
      * The input must be 4 characters long, and each character must be a digit between 1 and 6.
      *
@@ -96,6 +99,7 @@ public class CodeBreaker {
     }
 
     /**
+     * author: Khanh Cao
      * Starts the Mastermind game.
      * Manages the game loop, including user input, code evaluation, and board updates.
      * The game continues until the player guesses the correct code or exhausts all attempts.
