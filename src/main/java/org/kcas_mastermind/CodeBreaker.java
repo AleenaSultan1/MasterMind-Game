@@ -75,7 +75,7 @@ public class CodeBreaker {
      * @param input The user's input string to validate.
      * @return `true` if the input is valid, `false` otherwise.
      */
-    private boolean isValidInput(String input) {
+    public boolean isValidInput(String input) {
         // Check if the input length is exactly 4 characters
         if (input.length() != 4) {
             return false;

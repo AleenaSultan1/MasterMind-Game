@@ -32,9 +32,9 @@ import java.util.Scanner;
 public class GameManager {
     private String secretCode;
     private final CodeBreaker codeBreaker;
-    private CodeMaker codeMaker;
+    private final CodeMaker codeMaker;
     private final ArrayList<PegState> expectedResult;
-    private Board board;
+    private final Board board;
     private boolean gameWon;
 
     /**

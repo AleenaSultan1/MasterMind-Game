@@ -46,7 +46,7 @@ dependencies {
 
 application {
     mainModule.set("csci205_hw")
-    mainClass.set("kcas_mastermind.Main")
+    mainClass.set("org.kcas_mastermind.Main")
 
     if (project.hasProperty("mainClass")) {
         mainClass.set(project.property("mainClass").toString())
