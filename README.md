@@ -21,7 +21,7 @@ Mastermind is a code-breaking game where the player must guess a randomly genera
 - The scoring pegs do not indicate which specific pegs are correct or incorrect, adding to the challenge.
 
 The game also features different solver algorithms that attempt to break the code using various strategies, such as RandomSolver, StupidSolver, and MinMaxSolver.
-
+The user can customise how many turns they want to run the game for and choose whether they want to play it themselves or run a Solver. 
 ## How to run it
 1. **Compile the project** using a Java compiler:
    ```sh
