@@ -28,8 +28,8 @@ import java.util.Scanner;
  * It validates the input and converts it into a list of `CodeValue` objects for further processing.
  */
 public class CodeBreaker {
-    private String userCode;
-    private Board board;
+    private static String userCode;
+    private static Board board;
 
 
     /**
@@ -37,8 +37,8 @@ public class CodeBreaker {
      * Initializes the `userCode` to an empty string.
      */
     public CodeBreaker() {
-        this.userCode = "";
-        this.board = Board.makeNewBoard();
+        userCode = "";
+        board = Board.makeNewBoard();
     }
 
     /**
@@ -56,9 +56,9 @@ public class CodeBreaker {
             userCode = scanner.nextLine(); // Read user input
 
             // Validate the input
-            if (!isValidInput(userCode)) {
+            if (!(isValidInput(userCode))) {
                 System.out.println("Invalid input!");
-                System.out.print("Please enter exactly 4 digits between 1 and 6: ");
+                System.out.print("Please enter exactly 4 digits between 1 and " + GameConfig.COLOR_NUM + ": ");
             } else {
                 isValid = true; // Exit the loop if input is valid
             }
@@ -77,7 +77,7 @@ public class CodeBreaker {
      */
     private boolean isValidInput(String input) {
         // Check if the input length is exactly 4 characters
-        if (input.length() != 4) {
+        if (input.length() != GameConfig.CODE_LENGTH) {
             return false;
         }
 
@@ -100,8 +100,7 @@ public class CodeBreaker {
      * Manages the game loop, including user input, code evaluation, and board updates.
      * The game continues until the player guesses the correct code or exhausts all attempts.
      */
-    public ArrayList<PegState> startRound(ArrayList<CodeValue> answerKey) {
-        ArrayList<CodeValue> userInput = getUserInput();
+    public ArrayList<PegState> startRound(ArrayList<CodeValue> userInput, ArrayList<CodeValue> answerKey) {
         CodeMaker codeMaker = new CodeMaker(userInput, answerKey);
         ArrayList<PegState> result = codeMaker.getResult();
         board.updateBoard(userInput, result);

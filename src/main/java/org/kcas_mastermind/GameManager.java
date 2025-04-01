@@ -31,11 +31,10 @@ import java.util.Scanner;
 
 public class GameManager {
     private String secretCode;
-    private final CodeBreaker codeBreaker;
-    private CodeMaker codeMaker;
     private final ArrayList<PegState> expectedResult;
-    private Board board;
-    private boolean gameWon;
+    private final Board board;
+    private final CodeBreaker codeBreaker;
+
 
     /**
      * Constructs a new GameManager instance.
@@ -43,12 +42,11 @@ public class GameManager {
      */
     public GameManager() {
         this.secretCode = "";
-        this.codeBreaker = new CodeBreaker();
         this.expectedResult = new ArrayList<>();
         assignExpectedResult();
-        this.codeMaker = new CodeMaker(null, null);
         this.board = Board.makeNewBoard();
-        this.gameWon = false;
+        this.codeBreaker = new CodeBreaker();
+
     }
 
     /**
@@ -83,8 +81,11 @@ public class GameManager {
      */
     public void startGame() {
         Scanner scnr = new Scanner(System.in);
-
+        boolean gameWon = false;
         boolean isDone;
+
+        ArrayList<CodeValue> answerKey = generateSecretCode();
+
         // Loop until the user is done
         System.out.println("Guess my " + GameConfig.CODE_LENGTH
                 + " digit code, using numbers between 1 and 6. You have "
@@ -94,8 +95,8 @@ public class GameManager {
             while (count < GameConfig.MAX_ATTEMPTS) {
                 count++;
                 System.out.print("Guess " + count + ": ");
-                ArrayList<CodeValue> answerKey = generateSecretCode();
-                ArrayList<PegState> result = codeBreaker.startRound(answerKey);
+                ArrayList<CodeValue> userInput = codeBreaker.getUserInput();
+                ArrayList<PegState> result = codeBreaker.startRound(userInput, answerKey);
                 if (result.equals(expectedResult)) {
                     gameWon = true;
                     break;
@@ -106,12 +107,26 @@ public class GameManager {
                 System.out.println("Game won!");
             } else {
                 System.out.println("Game lost!");
+                System.out.println("The answer was " + answerKey);
             }
 
             // Ask if user wants to continue
             System.out.print("\nTry again? [y | n] ");
             isDone = scnr.nextLine().strip().equalsIgnoreCase("n");
         } while (!isDone);
+        scnr.close();
+    }
+
+    public void startRandomGame() {
+
+    }
+
+    public void startStupidGame(int gameNumber) {
+        ArrayList<CodeValue> answerKey = generateSecretCode();
+        StupidSolver stupidSimulation = new StupidSolver();
+        int turnCount = stupidSimulation.solve(answerKey);
+        System.out.println("Game number: " + gameNumber);
+        System.out.println("Average turn: " + turnCount);
     }
 
 

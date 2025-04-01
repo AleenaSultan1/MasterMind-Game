@@ -25,5 +25,6 @@ package org.kcas_mastermind;
  */
 public class GameConfig {
     public static final int MAX_ATTEMPTS = 12;  // Maximum number of guesses
-    public static final int CODE_LENGTH = 4;   // Number of slots in the guess
+    public static final int CODE_LENGTH = 4;  // Number of slots in the guess
+    public static final int COLOR_NUM = 6;  // Number of possible color to guess
 }
