@@ -1,11 +1,4 @@
-# CSCI 205 - Software Engineering and Design
-Bucknell University
-Lewisburg, PA
-
-### Course Info
-Instructor: Lily Romano 
-Semester: CSCI 205 Spring 
-
+# MasterMind Solver Game
 ## Team Information
 - Aleena Sultan
   - Computer Science and Engineering
